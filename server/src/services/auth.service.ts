@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import UserModel from "../models/user.model";
 import AccountModel from "../models/account.model";
-import workspaceModel from "../models/workspace.model";
 import RoleModel from "../models/roles-permission.model";
 import { Roles } from "../enums/role.enum";
 import {
@@ -11,6 +10,7 @@ import {
 } from "../utils/appError";
 import MemberModel from "../models/member.model";
 import { ProviderEnum } from "../enums/account-provider.enum";
+import WorkspaceModel from "../models/workspace.model";
 
 export const loginOrCreateAccountService = async (data: {
   provider: string;
@@ -44,7 +44,7 @@ export const loginOrCreateAccountService = async (data: {
 
       await account.save({ session });
 
-      const workspace = new workspaceModel({
+      const workspace = new WorkspaceModel({
         name: `My Workspace`,
         description: `Workspace created by ${user.name}`,
         owner: user._id,
@@ -122,7 +122,7 @@ export const registerUserService = async (body: {
 
     await account.save({ session });
 
-    const workspace = new workspaceModel({
+    const workspace = new WorkspaceModel({
       name: `My Workspace`,
       description: `Workspace created by ${user.name}`,
       owner: user._id,

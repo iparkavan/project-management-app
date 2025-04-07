@@ -35,9 +35,9 @@ WorkspaceSchema.methods.resetInviteCode = function () {
   this.inviteCode = generateInviteCode();
 };
 
-const workspaceModel = mongoose.model<WorkspaceDocument>(
+const WorkspaceModel = mongoose.model<WorkspaceDocument>(
   "Workspace",
   WorkspaceSchema
 );
 
-export default workspaceModel;
+export default WorkspaceModel;
