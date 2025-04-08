@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  changeWorkspaceMemberRoleController,
   createWorkspaceController,
   getAllWorkspacesUserIsMemberController,
   getWorkspaceAnalyticsController,
@@ -10,6 +11,11 @@ import {
 const workspaceRoutes = Router();
 
 workspaceRoutes.post(`/create/new`, createWorkspaceController);
+
+workspaceRoutes.put(
+  `/change/member/role/:id`,
+  changeWorkspaceMemberRoleController
+);
 
 workspaceRoutes.get(`/all`, getAllWorkspacesUserIsMemberController);
 

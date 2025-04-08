@@ -14,7 +14,7 @@ export const roleGaurd = (
 
   if (!hasPermission) {
     throw new UnauthorizedException(
-      "You do not have the necessary permission to access this action"
+      "You do not have the necessary permission to perform this action"
     );
   }
 };

@@ -88,7 +88,7 @@ export const getWorkspaceMembersService = async (workspaceId: string) => {
   // Fetch all member of the workspace
 
   const members = await MemberModel.find({ workspaceId })
-    .populate("userId", "name, email profilePicture -password")
+    .populate("userId", "name email profilePicture -password")
     .populate("role", "name");
 
   const roles = await RoleModel.find({}, { name: 1, _id: 1 })
@@ -123,4 +123,36 @@ export const getWorkspaceAnalyticsService = async (workspaceId: string) => {
   };
 
   return { analytics };
+};
+
+export const changeMemberRoleService = async (
+  workspaceId: string,
+  memberId: string,
+  roleId: string
+) => {
+  const workspace = await WorkspaceModel.findById(workspaceId);
+
+  if (!workspace) {
+    throw new NotFoundException("Workspace not found");
+  }
+
+  const role = await RoleModel.findById(roleId);
+
+  if (!role) {
+    throw new NotFoundException("Role not found");
+  }
+
+  const member = await MemberModel.findOne({
+    userId: memberId,
+    workspaceId,
+  });
+
+  if (!member) {
+    throw new NotFoundException("Member not found in workspace");
+  }
+
+  member.role = role;
+  member.save();
+
+  return { member };
 };
