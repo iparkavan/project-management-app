@@ -1,5 +1,4 @@
 import mongoose, { Document, Mongoose, Schema } from "mongoose";
-import { string } from "zod";
 import { compareValue, hashValue } from "../utils/bcrypt";
 
 export interface UserDocument extends Document {
@@ -36,7 +35,7 @@ const userSchema = new Schema<UserDocument>(
     },
     currentWorkspace: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "workspace",
+      ref: "Workspace",
     },
     isActive: { type: Boolean, default: true },
     lastLogin: { type: Date, default: null },
